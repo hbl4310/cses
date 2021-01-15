@@ -3,7 +3,6 @@
 using namespace std;
 
 // https://cses.fi/problemset/task/2165
-const int numstacks = 3; 
 // 1: rebase n-1 tower onto a free stack
 // 2: move n onto other free stack 
 // 3: rebase n-1 tower onto n
