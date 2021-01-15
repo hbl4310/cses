@@ -1,4 +1,4 @@
-# I'm learning C++ by doing problems on programming problems
+# I'm learning C++ by doing programming problems
 
 Problems: https://cses.fi
 There is no guarantee that these are the most efficient / elegant solutions. 
