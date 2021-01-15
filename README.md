@@ -16,7 +16,7 @@ There is no guarantee that these are the most efficient / elegant solutions.
 [:heavy_check_mark:] Permutations
 
 [:x:] Number Spiral
-- gets the correct output locally, but not on tests
+- gets the correct output locally, but not on tests; perhaps different architectures
 
 [:heavy_check_mark:] Two Knights
 
