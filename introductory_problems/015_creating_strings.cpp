@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector> 
 #include <cmath>
+// #include <chrono> 
 
 using namespace std;
+// using namespace chrono; 
 
 // https://cses.fi/problemset/task/1622
 unsigned count_letters(string s, int letters[]) {
@@ -38,13 +40,24 @@ void rebase(unsigned i, unsigned base, unsigned buffer[], unsigned n) {
     }
 }
 
+void increment(unsigned x[], unsigned incr, unsigned base, unsigned n) {
+    unsigned a, b = 0; 
+    for (unsigned i = n - 1; i >= 0; i--) {
+        a = (x[i] + incr) % base; 
+        b = (x[i] + incr) / base; 
+        x[i] = a; 
+        if (b == 0) {
+            break; 
+        }
+        incr = b; 
+    }
+}
+
 bool check_counts(unsigned x[], unsigned counts[], unsigned n, unsigned nunique) {
     unsigned checks[nunique] = {}; 
     for (unsigned i = 0; i < n; i++) {
         checks[x[i]] += 1; 
-    }
-    for (unsigned i = 0; i < nunique; i ++) {
-        if (checks[i] > counts[i]) {
+        if (checks[x[i]] > counts[x[i]]) {
             return false; 
         }
     }
@@ -88,28 +101,34 @@ int iinit(unsigned counts[], unsigned base) {
 }
 
 void solve(string s) {
-    // count number of each letter and total unique letters
+    // number of each letter and total unique letters
     int letters[N] = {}; 
     unsigned nunique = count_letters(s, letters); 
+    // unique letter frequencies, and calculate permutations 
     char unique_letters[nunique] = {}; 
     unsigned unique_letters_count[nunique] = {}; 
     Perm perms = count_permutations(letters, nunique, unique_letters, unique_letters_count); 
     cout << perms.total << endl;
+    // count through all possible permutations of unique letters and ignore illegal ones
     unsigned buffer[perms.n] = {}; 
     unsigned i = iinit(unique_letters_count, nunique), j = 0; 
+    rebase(i, nunique, buffer, perms.n);
     while (j < perms.total) {
-        rebase(i, nunique, buffer, perms.n);
+        // rebase(i, nunique, buffer, perms.n);
         if (check_counts(buffer, unique_letters_count, perms.n, nunique)) {
             print(buffer, unique_letters, perms.n); 
             j += 1; 
         } 
-        i += 1; 
+        increment(buffer, 1, nunique, perms.n); 
     } 
 }
-
 
 int main() {
     string s; 
     getline(cin, s);
+    // auto start = high_resolution_clock::now(); 
     solve(s); 
+    // auto stop = high_resolution_clock::now(); 
+    // auto duration = duration_cast<microseconds>(stop - start); 
+    // cout << duration.count() << endl; 
 }
