@@ -42,7 +42,7 @@ void rebase(unsigned i, unsigned base, unsigned buffer[], unsigned n) {
 
 void increment(unsigned x[], unsigned incr, unsigned base, unsigned n) {
     unsigned a, b = 0; 
-    for (unsigned i = n - 1; i >= 0; i--) {
+    for (int i = n - 1; i >= 0; i--) {
         a = (x[i] + incr) % base; 
         b = (x[i] + incr) / base; 
         x[i] = a; 
@@ -114,7 +114,6 @@ void solve(string s) {
     unsigned i = iinit(unique_letters_count, nunique), j = 0; 
     rebase(i, nunique, buffer, perms.n);
     while (j < perms.total) {
-        // rebase(i, nunique, buffer, perms.n);
         if (check_counts(buffer, unique_letters_count, perms.n, nunique)) {
             print(buffer, unique_letters, perms.n); 
             j += 1; 
