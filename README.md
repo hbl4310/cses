@@ -35,12 +35,13 @@ There is no guarantee that these are the most efficient / elegant solutions.
 
 [:heavy_check_mark:] Tower of Hanoi
 
-[ ] Creating Strings
+[:heavy_check_mark:] Creating Strings
 
 [ ] Apple Division
 
 [ ] Chessboard and Queens
 
-[ ] Digit Queries
+[:x:] Digit Queries
+- getting correct output locally, but not on tests
 
 [ ] Grid Paths
