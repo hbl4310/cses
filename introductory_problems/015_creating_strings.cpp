@@ -1,17 +1,101 @@
 #include <iostream>
+#include <vector> 
 
 using namespace std;
 
 // https://cses.fi/problemset/task/1622
-const char az[] = "abcdefghijklmnopqrstuvwxyz";
-void solve(string s) {
-    int n = s.length(); 
-    int letters[sizeof(az)/sizeof(az[0])] = {0}; 
+unsigned count_letters(string s, int letters[]) {
+    unsigned nunique = 0; 
+    unsigned l = 0; 
     for (const char &c: s) {
-        letters[(unsigned)((int)(c) - 65)] += 1; 
+        l = (unsigned)((int)(c) - 97); 
+        if (letters[l] == 0) {
+            nunique += 1; 
+        }
+        letters[l] += 1; 
     }
-    cout << n << "\n";
+    return nunique; 
+}
 
+const int N = 26; 
+const char az[N + 1] = "abcdefghijklmnopqrstuvwxyz";
+int factorial(int x) {
+    if (x <= 1) {
+        return 1; 
+    }
+    return x * factorial(x - 1);  // x <= 8
+}
+
+void rebase(unsigned i, unsigned base, unsigned buffer[], unsigned n) {
+    buffer[n - 1] = i; 
+    for (unsigned l = n - 1; l > 0; l--) {
+        buffer[l - 1] = buffer[l] / base; 
+        buffer[l] = buffer[l] % base; 
+        if (buffer[l - 1] == 0) {
+            break; 
+        }            
+    }
+}
+
+bool check_counts(unsigned x[], unsigned counts[], unsigned n, unsigned nunique) {
+    unsigned checks[nunique] = {}; 
+    for (unsigned i = 0; i < n; i++) {
+        checks[x[i]] += 1; 
+    }
+    for (unsigned i = 0; i < nunique; i ++) {
+        if (checks[i] > counts[i]) {
+            return false; 
+        }
+    }
+    return true; 
+}
+
+void print(unsigned x[], char letters[], unsigned n) {
+    for (unsigned i = 0; i < n; i++) {
+        cout << letters[x[i]]; 
+    }
+    cout << endl;
+}
+
+struct Perm {
+    unsigned n; 
+    unsigned total; 
+}; 
+Perm count_permutations(int letters[N], unsigned nunique, char unique_letters[], unsigned unique_letters_count[]) {
+    int n = 0, l = 0, k = 1; 
+    unsigned j = 0; 
+    for (unsigned i = 0; i < N; i++) {
+        l = letters[i]; 
+        if (l > 0) {
+            n += l; 
+            k *= factorial(l); 
+            unique_letters[j] = az[i]; 
+            unique_letters_count[j] = l;
+            j += 1; 
+        }
+    }
+    Perm result = {(unsigned)n, (unsigned)(factorial(n) / k)}; 
+    return result; 
+}
+
+void solve(string s) {
+    // count number of each letter and total unique letters
+    int letters[N] = {}; 
+    unsigned nunique = count_letters(s, letters); 
+    char unique_letters[nunique] = {}; 
+    unsigned unique_letters_count[nunique] = {}; 
+    Perm perms = count_permutations(letters, nunique, unique_letters, unique_letters_count); 
+    cout << perms.total << endl;
+    unsigned buffer[perms.n] = {}; 
+    unsigned i = 0, j = 0; 
+    while (j < perms.total) {
+        rebase(i, nunique, buffer, perms.n);
+        if (check_counts(buffer, unique_letters_count, perms.n, nunique)) {
+            print(buffer, unique_letters, perms.n); 
+            j += 1; 
+        } 
+        i += 1; 
+    } 
 }
 
 int main() {
