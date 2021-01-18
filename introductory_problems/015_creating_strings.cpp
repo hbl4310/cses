@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector> 
+#include <cmath>
 
 using namespace std;
 
@@ -78,6 +79,14 @@ Perm count_permutations(int letters[N], unsigned nunique, char unique_letters[],
     return result; 
 }
 
+int iinit(unsigned counts[], unsigned base) {
+    int x = 0; 
+    for (unsigned i = 1; i < base; i++) {
+        x += i * (int)(round(pow(base, (base - i - 1)))); 
+    }
+    return x; 
+}
+
 void solve(string s) {
     // count number of each letter and total unique letters
     int letters[N] = {}; 
@@ -87,7 +96,7 @@ void solve(string s) {
     Perm perms = count_permutations(letters, nunique, unique_letters, unique_letters_count); 
     cout << perms.total << endl;
     unsigned buffer[perms.n] = {}; 
-    unsigned i = 0, j = 0; 
+    unsigned i = iinit(unique_letters_count, nunique), j = 0; 
     while (j < perms.total) {
         rebase(i, nunique, buffer, perms.n);
         if (check_counts(buffer, unique_letters_count, perms.n, nunique)) {
@@ -97,6 +106,7 @@ void solve(string s) {
         i += 1; 
     } 
 }
+
 
 int main() {
     string s; 
