@@ -21,15 +21,15 @@ vector<string> split(const string &s, char delim) {
 }
 
 // https://cses.fi/problemset/task/1623
-float halfmean(int w[], int n) {
-    int s = 0; 
+double halfmean(int w[], int n) {
+    long long s = 0; 
     for (int i = 0; i < n; i++) {
         s += w[i];
     }
-    return (float)s / 2.0; 
+    return (double)s / 2.0; 
 }
 
-int fill(int w[], int i, int n, bool x[], int xsum, float m, int best) {
+int fill(int w[], int i, int n, bool x[], long long xsum, double m, long long best) {
     // cout << "i=" << i << ", x={"; 
     // for (int j = 0; j < n; j++) {
     //     cout << x[j] << " "; 
@@ -62,17 +62,17 @@ int fill(int w[], int i, int n, bool x[], int xsum, float m, int best) {
 }
 
 void solve(int w[], int n) {
-    float m = halfmean(w, n); 
+    double m = halfmean(w, n); 
     // cout << "half-mean: " << m << endl; 
     bool x[(unsigned)n] = {}; 
-    int b = fill(w, 0, n, x, 0, m, 0) ; 
+    long long b = fill(w, 0, n, x, 0, m, 0) ; 
     // cout << "best fill = " << b << endl; 
     // cout << "x = {"; 
     // for (int j = 0; j < n; j++) {
     //     cout << x[j] << " "; 
     // }
     // cout << "}" << endl; 
-    cout << round(2 * abs(b - m)); 
+    cout << (unsigned)abs(2 * b - llround(2 * m)); 
 }
 
 int main() {
