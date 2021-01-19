@@ -53,10 +53,10 @@ void solve(int w[], int n) {
     int a[n] = {}, b[n] = {}; 
     int ai = 0, bi = 0, aw = 0, bw = 0; 
     sort(w, 0, n); 
-    cout << "sorted w: "; 
-    for (int i = 0; i < n; i++) {
-        cout << w[i] << " "; 
-    }
+    // cout << "sorted w: "; 
+    // for (int i = 0; i < n; i++) {
+    //     cout << w[i] << " "; 
+    // }
     for (int i = n - 1; i >= 0; i--) {
         if (aw < bw) {
             a[ai] = w[i]; 
@@ -68,15 +68,15 @@ void solve(int w[], int n) {
             bw += w[i]; 
         }
     }
-    cout << endl << "a: "; 
-    for (int i = 0; i < ai; i++) {
-        cout << a[i] << " "; 
-    }
-    cout << endl << "b: "; 
-    for (int i = 0; i < bi; i++) {
-        cout << b[i] << " "; 
-    }
-    cout << endl; 
+    // cout << endl << "a: "; 
+    // for (int i = 0; i < ai; i++) {
+    //     cout << a[i] << " "; 
+    // }
+    // cout << endl << "b: "; 
+    // for (int i = 0; i < bi; i++) {
+    //     cout << b[i] << " "; 
+    // }
+    // cout << endl; 
     cout << abs(aw - bw); 
 }
 
