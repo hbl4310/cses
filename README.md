@@ -37,7 +37,7 @@ There is no guarantee that these are the most efficient / elegant solutions.
 
 [:heavy_check_mark:] Creating Strings
 
-[ ] Apple Division
+[:heavy_check_mark:] Apple Division
 
 [ ] Chessboard and Queens
 
