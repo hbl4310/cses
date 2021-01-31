@@ -39,7 +39,7 @@ There is no guarantee that these are the most efficient / elegant solutions.
 
 [:heavy_check_mark:] Apple Division
 
-[ ] Chessboard and Queens
+[:heavy_check_mark:] Chessboard and Queens
 
 [:x:] Digit Queries
 - getting correct output locally, but not on tests
